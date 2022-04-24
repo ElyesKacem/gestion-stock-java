@@ -206,6 +206,16 @@ public class Frame extends JFrame {
 		panel.add(textFieldEventName);
 		textFieldEventName.setColumns(10);
 		
+		JLabel lblType = new JLabel("Type");
+		lblType.setBounds(93, 127, 70, 15);
+		panel.add(lblType);
+		
+		JTextField textFieldType = new JTextField();;
+		textFieldType = new JTextField();
+		textFieldType.setBounds(210, 125, 244, 19);
+		panel.add(textFieldType);
+		textFieldType.setColumns(10);
+
 		JLabel lblEventDate = new JLabel("Date");
 		lblEventDate.setBounds(93, 152, 70, 15);
 		panel.add(lblEventDate);
@@ -214,6 +224,16 @@ public class Frame extends JFrame {
 		textFieldEventDate.setColumns(10);
 		textFieldEventDate.setBounds(210, 150, 244, 19);
 		panel.add(textFieldEventDate);
+
+		JLabel lblroom = new JLabel("room");
+		lblroom.setBounds(93, 182, 70, 15);
+		panel.add(lblroom);
+		
+		JTextField textFieldroom = new JTextField();;
+		textFieldroom = new JTextField();
+		textFieldroom.setBounds(210, 179, 244, 19);
+		panel.add(textFieldroom);
+		textFieldroom.setColumns(10);
 		
 		JLabel lblEventDescription = new JLabel("Description");
 		lblEventDescription.setBounds(93, 212, 94, 15);
@@ -236,7 +256,7 @@ public class Frame extends JFrame {
 				
 				//String x = textFieldEventName.getText();
 				String d=textFieldEventDate.getText();
-				String description = editorPaneEventDescription.getText();		//lehné eli bech ycollecti les données
+				String description = editorPaneEventDescription.getText();		//lehnï¿½ eli bech ycollecti les donnï¿½es
 				//insertTicket(x,x,x,x)
 				openEvents();
 			}
