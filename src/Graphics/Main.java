@@ -1,16 +1,17 @@
 package Graphics;
 
-import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 public class Main extends JFrame {
 
-	private JPanel contentPane;
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Launch the application.
 	 */
@@ -18,8 +19,9 @@ public class Main extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Main frame = new Main();
-					frame.setVisible(true);
+					
+					new Frame().setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -31,7 +33,7 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
-		new Frame().setVisible(true);
+		
 	}
 
 }
