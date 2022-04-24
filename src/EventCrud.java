@@ -12,11 +12,7 @@ import java.sql.Statement;
  * and open the template in the editor.
  */
 
-/**
- *
- * @author Ramnaf
- */
-public class TicketCrud {
+public class EventCrud {
     final public String dbURL = "jdbc:mysql://localhost:3306/projetjavaing1";
 	final public String username = "root";
 	final public String password = "";
@@ -36,16 +32,16 @@ public class TicketCrud {
 		 }
                 return null;
 	}
-	public void insertTicket(String client,int event,float prix,boolean etat) {
+	public void insertEvent(String name,int event,int salle,String type, String date) {
         try{
 	        	            	
 			Connection conn =getConnectionDB();
-			String sql = "INSERT INTO ticket (client, IDEvenement, prix, etat) VALUES (?, ?, ?, ?)";		 
+			String sql = "INSERT INTO event (name, salle, type, description,date) VALUES (?, ?, ?, ?, ?)";		 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, client);
-			statement.setInt(2, event);
-			statement.setFloat(3, prix);
-			statement.setBoolean(4, etat);
+			statement.setString(1, name);
+			statement.setString(2, type);
+			statement.setInt(3, salle);
+			statement.setString(4, date);
 		 
 			int rowsInserted = statement.executeUpdate();
 			if (rowsInserted > 0) {
@@ -60,15 +56,16 @@ public class TicketCrud {
             
 	}
 	
-	public void listTickets() {
+	public void listEvent() {
 		int id;
-		String client;
-		int event;
-		float prix;
-		boolean etat;
+		String date;
+		String description;
+		String name;
+		int salle;
+		String type;
                 try{
 		Connection conn = getConnectionDB();
-		String sql = "SELECT * FROM ticket";
+		String sql = "SELECT * FROM event";
 		 
 		          Statement statement = conn.createStatement();
 		          ResultSet result = statement.executeQuery(sql);
@@ -77,10 +74,12 @@ public class TicketCrud {
 		 
 		while (result.next()){
                     id = result.getInt(1);
-		    client = result.getString(2);
-		    event = result.getInt(3);
-		    prix = result.getFloat(4);
-		    etat = result.getBoolean(5);
+		    date = result.getString(2);
+		    description = result.getString(3);
+		    name = result.getString(4);
+		    salle = result.getInt(5);
+		    type = result.getString(6);
+		    
                     count=count+1;
 		  //affichage
 		}
@@ -91,21 +90,22 @@ public class TicketCrud {
             
 	}
 	
-		public void UpdateTicket(int id,String client,int event,float prix,boolean etat) {
+		public void UpdateEvent(int id,String name,String description,int salle,String type, String date) {
                     try{
 			Connection conn =getConnectionDB();
-			String sql = "UPDATE ticket SET client=?, IDEvenement=?, prix=?, etat=? WHERE id=?";
+			String sql = "UPDATE event SET date=?, description=?, name=?, salle=?, type=? WHERE id=?";
 			 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, client);
-			statement.setInt(2, event);
-			statement.setFloat(3, prix);
-			statement.setBoolean(4, etat);
-			statement.setInt(5, id);
-			 
+			statement.setString(1, date);
+			statement.setString(2, description);
+			statement.setString(3, name);
+			statement.setInt(4, salle);
+			statement.setString(5, type);
+			statement.setInt(6, id);
+			
 			int rowsUpdated = statement.executeUpdate();
 			if (rowsUpdated > 0) {
-			    System.out.println("ticket modifié");
+			    System.out.println("event modified");
 			}
                     }
                     catch (SQLException ex) {
@@ -114,17 +114,17 @@ public class TicketCrud {
             
 		}
 		
-		public void deleteTicket(int id) {
+		public void deleteEvent(int id) {
                     try{
 			Connection conn =getConnectionDB();
-			String sql = "DELETE FROM ticket WHERE id=?";
+			String sql = "DELETE FROM event WHERE id=?";
 			 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, id);
 			 
 			int rowsDeleted = statement.executeUpdate();
 			if (rowsDeleted > 0) {
-			    System.out.println("ticket supprimé");
+			    System.out.println("event deleted");
 			}
                     }
                     catch (SQLException ex) {

@@ -228,10 +228,16 @@ public class Frame extends JFrame {
 		btnConfirmCreateEvent.setForeground(Color.BLACK);
 		btnConfirmCreateEvent.setBounds(419, 489, 144, 25);
 		panel.add(btnConfirmCreateEvent);
+		
+		
 		btnConfirmCreateEvent.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				
+				//String x = textFieldEventName.getText();
+				String d=textFieldEventDate.getText();
+				String description = editorPaneEventDescription.getText();		//lehné eli bech ycollecti les données
+				//insertTicket(x,x,x,x)
 				openEvents();
 			}
 			

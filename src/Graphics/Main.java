@@ -4,7 +4,7 @@ package Graphics;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+
 
 public class Main extends JFrame {
 
