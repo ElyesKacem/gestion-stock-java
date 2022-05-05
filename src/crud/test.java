@@ -1,3 +1,4 @@
+package crud;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -9,8 +10,8 @@
  */
 public class test {
     public static void main(String Args[]){
-        TicketCrud tc = new TicketCrud();
-        tc.insertTicket("client", 0, 0, true);
+        EventCrud ec = new EventCrud();
+        ec.insertEvent("client", 50, "cinema","x/x/199x","desc desc");
     }
     
 }

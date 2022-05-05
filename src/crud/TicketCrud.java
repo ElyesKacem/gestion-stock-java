@@ -1,3 +1,4 @@
+package crud;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,7 +20,7 @@ import java.sql.Statement;
 public class TicketCrud {
     final public String dbURL = "jdbc:mysql://localhost:3306/projetjavaing1";
 	final public String username = "root";
-	final public String password = "";
+	final public String password = "root";
 	
 	public Connection getConnectionDB() {
 		try {
