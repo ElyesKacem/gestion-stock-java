@@ -20,7 +20,7 @@ import GestionEvenement.Evenement;
 public class EventCrud {
 	final public String dbURL = "jdbc:mysql://localhost:3306/projetjavaing1";
 	final public String username = "root";
-	final public String password = "root";
+	final public String password = "";
 
 	public Connection getConnectionDB() {
 		try {
