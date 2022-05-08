@@ -3,18 +3,27 @@ package Ticket;
 public class Ticket {
 	private int id;
 	private float prix;
-	private int IDEvenement;
-	private int IDClient;
+	private int idEvenement;
+	private String client;
 	private Boolean etat;
 	
-	
-	
-	public Ticket(int id, float prix, int iDEvenement, int iDClient, Boolean etat) {
+	public Ticket(int id, float prix, int idEvenement, String clientName) {
 
 		this.id = id;
 		this.prix = prix;
-		IDEvenement = iDEvenement;
-		IDClient = iDClient;
+		this.idEvenement = idEvenement;
+		client = clientName;
+		this.etat = false;
+		
+	}
+	
+	
+	public Ticket(int id, float prix, int idEvenement, String clientName, Boolean etat) {
+
+		this.id = id;
+		this.prix = prix;
+		this.idEvenement = idEvenement;
+		client = clientName;
 		this.etat = etat;
 		
 	}
@@ -31,17 +40,17 @@ public class Ticket {
 	public void setPrix(float prix) {
 		this.prix = prix;
 	}
-	public int getIDEvenement() {
-		return IDEvenement;
+	public int getidEvenement() {
+		return idEvenement;
 	}
-	public void setIDEvenement(int iDEvenement) {
-		IDEvenement = iDEvenement;
+	public void setidEvenement(int idEvenement) {
+		this.idEvenement = idEvenement;
 	}
-	public int getIDClient() {
-		return IDClient;
+	public String getClient() {
+		return client;
 	}
-	public void setIDClient(int iDClient) {
-		IDClient = iDClient;
+	public void setClient(String iDclient) {
+		client = iDclient;
 	}
 	public Boolean getEtat() {
 		return etat;

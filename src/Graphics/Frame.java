@@ -14,7 +14,9 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
 import GestionEvenement.Evenement;
+import Ticket.Ticket;
 import crud.EventCrud;
+import crud.TicketCrud;
 
 import java.awt.Color;
 
@@ -23,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 
 public class Frame extends JFrame {
@@ -76,6 +79,14 @@ public class Frame extends JFrame {
 		JButton btnTickets = new JButton("Tickets");
 		btnTickets.setBackground(Color.ORANGE);
 		btnTickets.setBounds(300, 200, 200, 25);
+		btnTickets.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				openTickets();
+
+			}
+
+		});
 		panel.add(btnTickets);
 
 		JButton btnQuit = new JButton("Quit");
@@ -147,35 +158,168 @@ public class Frame extends JFrame {
 	public void openTickets() {
 		panel.removeAll();
 
-		JLabel title = new JLabel("Events");
-		title.setBounds(5, 5, 590, 15);
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(title);
-
-		JLabel lblEvents = new JLabel("Events Menu");
-		lblEvents.setForeground(Color.WHITE);
-		lblEvents.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEvents.setBounds(345, 45, 110, 15);
-		panel.add(lblEvents);
+		JLabel lblTickets = new JLabel("Tickets Menu");
+		lblTickets.setForeground(Color.WHITE);
+		lblTickets.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTickets.setBounds(345, 45, 110, 15);
+		panel.add(lblTickets);
 		setLocationRelativeTo(null);
 
-		JButton btnCreateEvent = new JButton("Create Event");
-		btnCreateEvent.setBackground(Color.ORANGE);
-		btnCreateEvent.setBounds(207, 146, 190, 25);
-		panel.add(btnCreateEvent);
+		JButton btnCreateTicket = new JButton("Create Ticket");
+		btnCreateTicket.setBackground(Color.ORANGE);
+		btnCreateTicket.setBounds(300, 150, 200, 25);
+		btnCreateTicket.addActionListener(new ActionListener() {
 
-		JButton btnEditEvent = new JButton("Edit Event");
-		btnEditEvent.setBackground(Color.ORANGE);
-		btnEditEvent.setBounds(207, 202, 190, 25);
-		panel.add(btnEditEvent);
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				openCreateTicket();
+			}
+		});
+		panel.add(btnCreateTicket);
 
-		JButton btnDeleteEvent = new JButton("Delete Event");
-		btnDeleteEvent.setBackground(Color.ORANGE);
-		btnDeleteEvent.setBounds(207, 259, 190, 25);
-		panel.add(btnDeleteEvent);
+		JButton btnValidateTicket = new JButton("Check Ticket");
+		btnValidateTicket.setBackground(Color.ORANGE);
+		btnValidateTicket.setBounds(300, 250, 200, 25);
+		btnValidateTicket.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				openCheckTicket();
+			}
+		});
+		panel.add(btnValidateTicket);
+
+		JButton btnEditTicket = new JButton("Show Tickets");
+		btnEditTicket.setBackground(Color.ORANGE);
+		btnEditTicket.setBounds(300, 200, 200, 25);
+		btnEditTicket.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				// openEditTicket(0);
+			}
+		});
+		panel.add(btnCreateTicket);
+		panel.add(btnEditTicket);
+
+		JButton btnReturn = new JButton("Return");
+		btnReturn.setBackground(Color.ORANGE);
+		btnReturn.setBounds(300, 300, 200, 25);
+		btnReturn.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				openMainMenu();
+			}
+		});
+		panel.add(btnReturn);
 
 		panel.repaint();
+	}
 
+	public void openCreateTicket() {
+		panel.removeAll();
+
+		EventCrud ec = new EventCrud();
+		String[] optionsToChoose = ec.getAllEventName().toArray(new String[0]);
+
+		if (optionsToChoose.length < 1) {
+			final JLabel lblCreateTicket = new JLabel("There is no Ticket, you need to create an Event first!");
+			lblCreateTicket.setForeground(Color.WHITE);
+			lblCreateTicket.setHorizontalAlignment(SwingConstants.CENTER);
+			lblCreateTicket.setBounds(345, 45, 110, 15);
+		} else {
+
+			final JLabel lblCreateTicket = new JLabel("Create Ticket");
+			lblCreateTicket.setForeground(Color.WHITE);
+			lblCreateTicket.setHorizontalAlignment(SwingConstants.CENTER);
+			lblCreateTicket.setBounds(345, 45, 110, 15);
+
+			final JLabel lblTicketName = new JLabel("Client Name");
+			lblTicketName.setBounds(200, 150, 90, 15);
+
+			final JTextField textFieldTicketName = new JTextField();
+			textFieldTicketName.setBounds(310, 150, 300, 15);
+			textFieldTicketName.setColumns(10);
+
+			final JLabel lblType = new JLabel("Event");
+			lblType.setBounds(200, 180, 90, 15);
+
+			JComboBox<String> jComboBox = new JComboBox<>(optionsToChoose);
+
+			final JTextField textFieldType = new JTextField();
+
+			jComboBox.setBounds(310, 180, 300, 20);
+			panel.add(lblCreateTicket);
+			panel.add(lblTicketName);
+			panel.add(textFieldTicketName);
+			panel.add(lblType);
+			panel.add(jComboBox);
+
+			textFieldType.setBounds(310, 180, 300, 15);
+			textFieldType.setColumns(10);
+
+			final JLabel lblTicketPrice = new JLabel("Price");
+			lblTicketPrice.setBounds(200, 210, 90, 15);
+			panel.add(lblTicketPrice);
+
+			final JTextField textFieldTicketPrice = new JTextField();
+			textFieldTicketPrice.setColumns(10);
+			textFieldTicketPrice.setBounds(310, 210, 300, 15);
+			panel.add(textFieldTicketPrice);
+
+			final JButton btnConfirmCreateTicket = new JButton("Create Ticket");
+			btnConfirmCreateTicket.setBackground(Color.ORANGE);
+			btnConfirmCreateTicket.setForeground(Color.BLACK);
+			btnConfirmCreateTicket.setBounds(450, 490, 150, 25);
+			panel.add(btnConfirmCreateTicket);
+
+			btnConfirmCreateTicket.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent arg0) {
+					{
+						TicketCrud tc = new TicketCrud();
+
+						// ev.insertTicket(textFieldTicketName.getText(),
+						// textFieldType.getText(), textFieldTicketDate.getText(),
+						// );
+
+						EventCrud ec = new EventCrud();
+						int idEvent = ec.getEventIdWithName(jComboBox.getSelectedItem().toString());
+
+						System.out.println("----------------------------");
+
+						tc.insertTicket(textFieldTicketName.getText(), idEvent,
+								Float.parseFloat(textFieldTicketPrice.getText()));
+						textFieldTicketName.setText("");
+
+						textFieldType.setText("");
+						textFieldTicketPrice.setText("");
+
+						System.out.println("Ticket inserted");
+
+					}
+
+				}
+
+			});
+		}
+
+		JButton btnCancelCreateTicket = new JButton("Return");
+		btnCancelCreateTicket.setForeground(Color.BLACK);
+		btnCancelCreateTicket.setBackground(Color.ORANGE);
+		btnCancelCreateTicket.setBounds(200, 490, 150, 25);
+		btnCancelCreateTicket.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				openTickets();
+			}
+
+		});
+		panel.add(btnCancelCreateTicket);
+
+		panel.repaint();
 	}
 
 	public void openCreateEvent() {
@@ -255,13 +399,12 @@ public class Frame extends JFrame {
 					textFieldEventDate.setText("");
 					editorPaneEventDescription.setText("");
 				}
-				
-				
+
 			}
 
 		});
 
-		JButton btnCancelCreateEvent = new JButton("Cancel");
+		JButton btnCancelCreateEvent = new JButton("Return");
 		btnCancelCreateEvent.setForeground(Color.BLACK);
 		btnCancelCreateEvent.setBackground(Color.ORANGE);
 		btnCancelCreateEvent.setBounds(200, 490, 150, 25);
@@ -274,6 +417,101 @@ public class Frame extends JFrame {
 
 		});
 		panel.add(btnCancelCreateEvent);
+
+		panel.repaint();
+	}
+
+	public void openCheckTicket() {
+		panel.removeAll();
+
+		TicketCrud ec = new TicketCrud();
+		ArrayList<Ticket> allTickets = ec.getAllTickets();
+
+		if (allTickets.size() < 1) {
+			final JLabel lblCreateTicket = new JLabel("There is no Ticket, you need to create at least one ticket!");
+			lblCreateTicket.setForeground(Color.WHITE);
+			lblCreateTicket.setHorizontalAlignment(SwingConstants.CENTER);
+			lblCreateTicket.setBounds(345, 45, 110, 15);
+			panel.add(lblCreateTicket);
+		} else {
+
+			final JLabel lblValidateTicket = new JLabel("Check Ticket");
+			lblValidateTicket.setForeground(Color.WHITE);
+			lblValidateTicket.setHorizontalAlignment(SwingConstants.CENTER);
+			lblValidateTicket.setBounds(345, 45, 110, 15);
+
+			final JLabel lblTicketId = new JLabel("TicketId");
+			lblTicketId.setBounds(200, 153, 90, 15);
+
+			final JTextField textFieldTicketId = new JTextField();
+			textFieldTicketId.setBounds(260, 150, 300, 25);
+			textFieldTicketId.setColumns(10);
+
+			panel.add(lblTicketId);
+			panel.add(lblValidateTicket);
+			panel.add(textFieldTicketId);
+
+			final JButton btnConfirmValidateTicket = new JButton("Validate");
+			btnConfirmValidateTicket.setBackground(Color.ORANGE);
+			btnConfirmValidateTicket.setForeground(Color.BLACK);
+			btnConfirmValidateTicket.setBounds(330, 200, 150, 25);
+			panel.add(btnConfirmValidateTicket);
+
+			final JLabel answer = new JLabel("");
+			answer.setForeground(Color.GREEN);
+			answer.setHorizontalAlignment(SwingConstants.CENTER);
+			answer.setBounds(350, 250, 110, 15);
+			panel.add(answer);
+
+			btnConfirmValidateTicket.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent arg0) {
+					{
+						TicketCrud tc = new TicketCrud();
+						int result = tc.validateTicketWithId(Integer.parseInt(textFieldTicketId.getText()));
+						System.out.println(result);
+						switch (result) {
+							case -1:
+								answer.setText("Uknowed ID");
+								answer.setForeground(Color.ORANGE);
+								break;
+							case 0:
+								answer.setText("It is USED!");
+								answer.setForeground(Color.RED);
+								break;
+
+							case 1:
+								answer.setText("Verified!");
+								answer.setForeground(Color.GREEN);
+								break;
+						}
+
+						// ev.insertTicket(textFieldTicketName.getText(),
+						// textFieldType.getText(), textFieldTicketDate.getText(),
+						// );
+
+						lblTicketId.setText("");
+
+					}
+
+				}
+
+			});
+		}
+
+		JButton btnCancelCreateTicket = new JButton("Return");
+		btnCancelCreateTicket.setForeground(Color.BLACK);
+		btnCancelCreateTicket.setBackground(Color.ORANGE);
+		btnCancelCreateTicket.setBounds(330, 490, 150, 25);
+		btnCancelCreateTicket.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				openTickets();
+			}
+
+		});
+		panel.add(btnCancelCreateTicket);
 
 		panel.repaint();
 	}

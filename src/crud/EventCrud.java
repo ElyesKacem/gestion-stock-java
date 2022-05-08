@@ -60,6 +60,68 @@ public class EventCrud {
 		}
 
 	}
+	
+
+	public ArrayList<String> getAllEventName() {
+		
+		ArrayList<String> tab=new ArrayList<String>();
+		
+		try {
+			Connection conn = getConnectionDB();
+			String sql = "SELECT name FROM event";
+
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery(sql);
+
+			int count = 0;
+
+			while (result.next()) {
+				
+				tab.add(result.getString(1));
+				
+
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		
+		return tab;
+		
+	}
+	
+	
+public int getEventIdWithName(String name) {
+		
+		ArrayList<String> tab=new ArrayList<String>();
+		
+		try {
+			Connection conn = getConnectionDB();
+			String sql = "SELECT id FROM event WHERE event.name='"+name+"'";
+
+			Statement statement = conn.createStatement();
+			
+			ResultSet result = statement.executeQuery(sql);
+
+			int count = 0;
+
+			while (result.next()) {
+				
+				tab.add(result.getString(1));
+				
+
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		
+		
+		
+		
+				
+		return Integer.parseInt(tab.get(0));
+		
+	}
+
 
 	public ArrayList<Evenement> listEvent() {
 		int id;
