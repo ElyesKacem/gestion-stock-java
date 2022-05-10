@@ -744,10 +744,14 @@ public class Frame extends JFrame {
 		GridBagConstraints gbc4 = new GridBagConstraints();
 		gbc4.gridx=4;
 		gbc4.gridy=0;
+		GridBagConstraints gbc5 = new GridBagConstraints();
+		gbc5.gridx=5;
+		gbc5.gridy=0;
 		int k = index * 10;
+		Boolean a = false;
 		while (k < tickets.size() && k < (index + 1) * 10) {
 			JPanel line = new JPanel();
-			Dimension dimension = new Dimension(160, 50);
+			Dimension dimension = new Dimension(133, 50);
 			GridBagLayout gbl = new GridBagLayout();
 			line.setLayout(gbl);
 			
@@ -783,52 +787,29 @@ public class Frame extends JFrame {
 			line.add(labelStatus,gbc4);
 			labelStatus.setText((i.getEtat())? "checked":"not checked");
 			
-			list.add(line,listgbc);
-			listgbc.gridy+=1;
-			/*JTextField textFieldDate = new JTextField();
-			textFieldDate.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-			list.add(textFieldDate);
-			textFieldDate.setText(i.getDate());
-
-			JEditorPane editorPaneEventDescription = new JEditorPane();
-			editorPaneEventDescription.setBorder(BorderFactory.createLineBorder(Color.GRAY, 0));
-			editorPaneEventDescription.setText(i.getDescription());
-			JScrollPane scrollPane = new JScrollPane(editorPaneEventDescription,
-					ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-			list.add(scrollPane);
-
 			JButton delete = new JButton("Delete");
 			delete.setBackground(Color.RED);
-			JButton update = new JButton("Update");
-			update.setBackground(Color.BLUE);
-			update.addActionListener(new ActionListener() {
-
-				public void actionPerformed(ActionEvent arg0) {
-					if (JOptionPane.showConfirmDialog(p, "Are you sure ?", "UPDATE",
-							JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-						tc.UpdateEvent(i.getId(), textFieldEventName.getText(), editorPaneEventDescription.getText(),
-								Integer.parseInt(textFieldSalle.getText()), textFieldType.getText(),
-								textFieldDate.getText());
-						openEditEvent(index);
-					}
-				}
-
-			});
-
+			delete.setPreferredSize(dimension);
 			list.add(delete);
 			delete.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent arg0) {
 					if (JOptionPane.showConfirmDialog(p, "Are you sure ?", "DELETE",
 							JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-						tc.deleteEvent(i.getId());
-						openEditEvent(index);
+						tc.deleteTicket(i.getId());
+						openShowTicket(index);
 					}
 				}
 
 			});
 
-			list.add(update);*/
+			line.add(delete,gbc5);
+			
+			
+			System.out.println("ouside if"+listgbc.gridy);
+			list.add(line,listgbc);
+			listgbc.gridy+=1;
+			System.out.println("outside if after"+listgbc.gridy);
 			k++;
 
 		}
