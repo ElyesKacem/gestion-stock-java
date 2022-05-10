@@ -19,6 +19,10 @@ import crud.EventCrud;
 import crud.TicketCrud;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -196,7 +200,7 @@ public class Frame extends JFrame {
 
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				// openEditTicket(0);
+				openShowTicket(0);
 			}
 		});
 		panel.add(btnCreateTicket);
@@ -646,6 +650,185 @@ public class Frame extends JFrame {
 			});
 
 			list.add(update);
+			k++;
+
+		}
+
+		JScrollPane jsp = new JScrollPane(list, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+		p.add(jsp);
+		panel.add(p);
+
+		panel.repaint();
+		setVisible(true);
+
+	}
+	public void openShowTicket(int index) {
+		panel.removeAll();
+
+		TicketCrud tc = new TicketCrud();
+		ArrayList<Ticket> tickets = tc.getAllTickets();
+
+		JLabel lblEdit = new JLabel("Edit events");
+		lblEdit.setForeground(Color.WHITE);
+		lblEdit.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEdit.setBounds(345, 45, 110, 15);
+		panel.add(lblEdit);
+
+		JButton btnReturn = new JButton("Return");
+		btnReturn.setBackground(Color.ORANGE);
+		btnReturn.setForeground(Color.BLACK);
+		btnReturn.setBounds(345, 520, 110, 25);
+		btnReturn.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				openTickets();
+			}
+
+		});
+		panel.add(btnReturn);
+
+		JButton previous = new JButton("<--");
+		previous.setBackground(Color.GREEN);
+		previous.setForeground(Color.BLACK);
+		previous.setBounds(200, 520, 100, 25);
+		previous.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				openShowTicket(index - 1);
+			}
+
+		});
+		panel.add(previous);
+		if (index < 1)
+			previous.setEnabled(false);
+
+		JButton next = new JButton("-->");
+		next.setBackground(Color.GREEN);
+		next.setForeground(Color.BLACK);
+		next.setBounds(500, 520, 100, 25);
+		next.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				openShowTicket(index + 1);
+			}
+
+		});
+		panel.add(next);
+		if ((index + 1) * 10 >= tickets.size())
+			next.setEnabled(false);
+
+		JPanel p = new JPanel();
+		p.setLayout(new BorderLayout());
+		p.setBounds(5, 100, 790, 400);
+
+		JPanel list = new JPanel();
+		GridBagLayout listgbl = new GridBagLayout();
+		list.setLayout(listgbl);
+		GridBagConstraints listgbc = new GridBagConstraints();
+		listgbc.gridy=0;
+		listgbc.gridx=0;
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx=0;
+		gbc.gridy=0;
+		GridBagConstraints gbc1 = new GridBagConstraints();
+		gbc1.gridx=1;
+		gbc1.gridy=0;
+		GridBagConstraints gbc2 = new GridBagConstraints();
+		gbc2.gridx=2;
+		gbc2.gridy=0;
+		GridBagConstraints gbc3 = new GridBagConstraints();
+		gbc3.gridx=3;
+		gbc3.gridy=0;
+		GridBagConstraints gbc4 = new GridBagConstraints();
+		gbc4.gridx=4;
+		gbc4.gridy=0;
+		int k = index * 10;
+		while (k < tickets.size() && k < (index + 1) * 10) {
+			JPanel line = new JPanel();
+			Dimension dimension = new Dimension(160, 50);
+			GridBagLayout gbl = new GridBagLayout();
+			line.setLayout(gbl);
+			
+			Ticket i = tickets.get(k);
+			
+			JLabel lableID = new JLabel();
+			lableID.setPreferredSize(dimension);
+			lableID.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			line.add(lableID, gbc);
+			lableID.setText(String.valueOf(i.getId()));
+
+			JLabel lableClientName = new JLabel();
+			lableClientName.setPreferredSize(dimension);
+			lableClientName.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			line.add(lableClientName,gbc1);
+			lableClientName.setText(i.getClient());
+
+			JLabel labelEventName = new JLabel();
+			labelEventName.setPreferredSize(dimension);
+			labelEventName.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			line.add(labelEventName,gbc2);
+			labelEventName.setText(tc.getEventNamebyId(i.getidEvenement()));
+
+			JLabel labelPrice = new JLabel();
+			labelPrice.setPreferredSize(dimension);
+			labelPrice.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			line.add(labelPrice,gbc3);
+			labelPrice.setText(i.getPrix() + " DT");
+			
+			JLabel labelStatus = new JLabel();
+			labelStatus.setPreferredSize(dimension);
+			labelStatus.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			line.add(labelStatus,gbc4);
+			labelStatus.setText((i.getEtat())? "checked":"not checked");
+			
+			list.add(line,listgbc);
+			listgbc.gridy+=1;
+			/*JTextField textFieldDate = new JTextField();
+			textFieldDate.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			list.add(textFieldDate);
+			textFieldDate.setText(i.getDate());
+
+			JEditorPane editorPaneEventDescription = new JEditorPane();
+			editorPaneEventDescription.setBorder(BorderFactory.createLineBorder(Color.GRAY, 0));
+			editorPaneEventDescription.setText(i.getDescription());
+			JScrollPane scrollPane = new JScrollPane(editorPaneEventDescription,
+					ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+			list.add(scrollPane);
+
+			JButton delete = new JButton("Delete");
+			delete.setBackground(Color.RED);
+			JButton update = new JButton("Update");
+			update.setBackground(Color.BLUE);
+			update.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent arg0) {
+					if (JOptionPane.showConfirmDialog(p, "Are you sure ?", "UPDATE",
+							JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						tc.UpdateEvent(i.getId(), textFieldEventName.getText(), editorPaneEventDescription.getText(),
+								Integer.parseInt(textFieldSalle.getText()), textFieldType.getText(),
+								textFieldDate.getText());
+						openEditEvent(index);
+					}
+				}
+
+			});
+
+			list.add(delete);
+			delete.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent arg0) {
+					if (JOptionPane.showConfirmDialog(p, "Are you sure ?", "DELETE",
+							JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						tc.deleteEvent(i.getId());
+						openEditEvent(index);
+					}
+				}
+
+			});
+
+			list.add(update);*/
 			k++;
 
 		}

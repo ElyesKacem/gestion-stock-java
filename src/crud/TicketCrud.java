@@ -117,18 +117,17 @@ public ArrayList<Ticket> getAllTickets() {
 			String clientName;
 			float price;
 			int IdEvent;
+			Boolean status;
 			
 
 			while (result.next()) {
 				
 				id = result.getInt(1);
 				clientName = result.getString(2);
-				
-				
 				IdEvent = result.getInt(3);
 				price = result.getFloat(4);
-				
-				Ticket t=new Ticket(id,price,IdEvent,clientName,true);
+				status = result.getBoolean(5);
+				Ticket t=new Ticket(id,price,IdEvent,clientName,status);
 				tab.add(t);
 				
 
@@ -251,6 +250,37 @@ public ArrayList<Ticket> getAllTickets() {
 				ex.printStackTrace();
 			}
 			return -2;
+			
+		}
+		public String getEventNamebyId(int id) {
+			
+			ArrayList<String> tab=new ArrayList<String>();
+			
+			try {
+				Connection conn = getConnectionDB();
+				String sql = "SELECT name FROM event WHERE event.id="+id;
+
+				Statement statement = conn.createStatement();
+				
+				ResultSet result = statement.executeQuery(sql);
+
+				int count = 0;
+
+				while (result.next()) {
+					
+					tab.add(result.getString(1));
+					
+
+				}
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+			
+			
+			
+			System.out.println("resultat"+tab);
+					
+			return tab.get(0);
 			
 		}
 		
