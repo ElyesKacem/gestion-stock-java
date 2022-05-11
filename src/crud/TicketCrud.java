@@ -168,6 +168,26 @@ public ArrayList<Ticket> getAllTickets() {
 		 }
             
 		}
+		public void UpdateTicket(int id,String client,int event,float prix) {
+            try{
+				Connection conn =getConnectionDB();
+				String sql = "UPDATE ticket SET client=?, IDEvenement=?, prix=? WHERE id=?";
+				 
+				PreparedStatement statement = conn.prepareStatement(sql);
+				statement.setString(1, client);
+				statement.setInt(2, event);
+				statement.setFloat(3, prix);
+				statement.setInt(5, id);
+				 
+				int rowsUpdated = statement.executeUpdate();
+				if (rowsUpdated > 0) {
+				    System.out.println("ticket modifié");
+				}
+			            }
+			            catch (SQLException ex) {
+			    ex.printStackTrace();
+			 }   
+		}
 		
 		public void deleteTicket(int id) {
                     try{

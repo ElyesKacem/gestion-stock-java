@@ -670,7 +670,7 @@ public class Frame extends JFrame {
 		TicketCrud tc = new TicketCrud();
 		ArrayList<Ticket> tickets = tc.getAllTickets();
 
-		JLabel lblEdit = new JLabel("Edit events");
+		JLabel lblEdit = new JLabel("Ticket List");
 		lblEdit.setForeground(Color.WHITE);
 		lblEdit.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEdit.setBounds(345, 45, 110, 15);
@@ -726,9 +726,7 @@ public class Frame extends JFrame {
 		JPanel list = new JPanel();
 		GridBagLayout listgbl = new GridBagLayout();
 		list.setLayout(listgbl);
-		GridBagConstraints listgbc = new GridBagConstraints();
-		listgbc.gridy=0;
-		listgbc.gridx=0;
+		
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx=0;
 		gbc.gridy=0;
@@ -747,11 +745,85 @@ public class Frame extends JFrame {
 		GridBagConstraints gbc5 = new GridBagConstraints();
 		gbc5.gridx=5;
 		gbc5.gridy=0;
+		GridBagConstraints gbc6 = new GridBagConstraints();
+		gbc5.gridx=6;
+		gbc5.gridy=0;
+		
+		
+		
+		GridBagConstraints listgbc = new GridBagConstraints();
+		listgbc.gridy=1;
+		listgbc.gridx=0;
+		
+		GridBagConstraints listheadergbc = new GridBagConstraints();
+		listheadergbc.gridy=0;
+		listheadergbc.gridx=0;
+		
+		JPanel header = new JPanel();
+		Dimension hdimension = new Dimension(114, 30);
+		GridBagLayout headergbl = new GridBagLayout();
+		header.setLayout(headergbl);
+		
+		JLabel headerID = new JLabel();
+		headerID.setPreferredSize(hdimension);
+		headerID.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+		header.add(headerID, gbc);
+		headerID.setText("Ticket ID");
+
+		JLabel labelClientName = new JLabel();
+		labelClientName.setPreferredSize(hdimension);
+		labelClientName.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+		header.add(labelClientName,gbc1);
+		labelClientName.setText("Guest Name");
+		
+		JLabel labelEventName = new JLabel();
+		labelEventName.setPreferredSize(hdimension);
+		labelEventName.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+		header.add(labelEventName,gbc2);
+		labelEventName.setText("event");
+
+		JLabel labelPrice = new JLabel();
+		labelPrice.setPreferredSize(hdimension);
+		labelPrice.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+		header.add(labelPrice,gbc3);
+		labelPrice.setText("price");
+		
+		JLabel labelStatus = new JLabel();
+		labelStatus.setPreferredSize(hdimension);
+		labelStatus.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+		header.add(labelStatus,gbc4);
+		labelStatus.setText("Status");
+		
+		JLabel labelDelete = new JLabel();
+		labelDelete.setPreferredSize(hdimension);
+		labelDelete.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+		header.add(labelDelete,gbc5);
+		labelDelete.setText("Delete");
+		
+		JLabel labelUpdate = new JLabel();
+		labelUpdate.setPreferredSize(hdimension);
+		labelUpdate.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+		header.add(labelUpdate,gbc6);
+		labelUpdate.setText("Delete");
+		
+		list.add(header,listheadergbc);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		int k = index * 10;
 		Boolean a = false;
 		while (k < tickets.size() && k < (index + 1) * 10) {
 			JPanel line = new JPanel();
-			Dimension dimension = new Dimension(133, 50);
+			Dimension dimension = new Dimension(114, 30);
 			GridBagLayout gbl = new GridBagLayout();
 			line.setLayout(gbl);
 			
@@ -763,34 +835,40 @@ public class Frame extends JFrame {
 			line.add(lableID, gbc);
 			lableID.setText(String.valueOf(i.getId()));
 
-			JLabel lableClientName = new JLabel();
-			lableClientName.setPreferredSize(dimension);
-			lableClientName.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-			line.add(lableClientName,gbc1);
-			lableClientName.setText(i.getClient());
+			JTextField textFieldClientName = new JTextField();
+			textFieldClientName.setPreferredSize(dimension);
+			textFieldClientName.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			line.add(textFieldClientName,gbc1);
+			textFieldClientName.setText(i.getClient());
 
-			JLabel labelEventName = new JLabel();
-			labelEventName.setPreferredSize(dimension);
-			labelEventName.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-			line.add(labelEventName,gbc2);
-			labelEventName.setText(tc.getEventNamebyId(i.getidEvenement()));
+			EventCrud ec = new EventCrud();
+			String[] optionsToChoose = ec.getAllEventName().toArray(new String[0]);
+			JComboBox<String> eventscomboBox = new JComboBox<>(optionsToChoose);
+			eventscomboBox.setPreferredSize(dimension);
+			eventscomboBox.setBackground(Color.WHITE);
+			eventscomboBox.setSelectedItem(tc.getEventNamebyId(i.getidEvenement()));
+			line.add(eventscomboBox,gbc2);
 
-			JLabel labelPrice = new JLabel();
-			labelPrice.setPreferredSize(dimension);
-			labelPrice.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-			line.add(labelPrice,gbc3);
-			labelPrice.setText(i.getPrix() + " DT");
+			JTextField textFieldPrice = new JTextField();
+			textFieldPrice.setPreferredSize(dimension);
+			textFieldPrice.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			line.add(textFieldPrice,gbc3);
+			textFieldPrice.setText(i.getPrix() + " DT");
 			
-			JLabel labelStatus = new JLabel();
-			labelStatus.setPreferredSize(dimension);
-			labelStatus.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-			line.add(labelStatus,gbc4);
-			labelStatus.setText((i.getEtat())? "checked":"not checked");
+			JTextField textFieldStatus = new JTextField();
+			textFieldStatus.setEditable(false);;
+			textFieldStatus.setForeground(Color.BLACK);
+			textFieldStatus.setBackground(Color.WHITE);
+			textFieldStatus.setPreferredSize(dimension);
+			textFieldStatus.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			line.add(textFieldStatus,gbc4);
+			textFieldStatus.setText((i.getEtat())? "checked":"not checked");
+
 			
 			JButton delete = new JButton("Delete");
 			delete.setBackground(Color.RED);
+			delete.setForeground(Color.WHITE);
 			delete.setPreferredSize(dimension);
-			list.add(delete);
 			delete.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent arg0) {
@@ -802,8 +880,24 @@ public class Frame extends JFrame {
 				}
 
 			});
-
 			line.add(delete,gbc5);
+			
+			JButton update = new JButton("Update");
+			update.setBackground(Color.BLUE);
+			update.setForeground(Color.WHITE);
+			update.setPreferredSize(dimension);
+			update.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent arg0) {
+					if (JOptionPane.showConfirmDialog(p, "Are you sure ?", "UPDATE",
+							JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						tc.UpdateTicket(i.getId(), textFieldClientName.getText(), ec.getEventIdWithName(eventscomboBox.getSelectedItem().toString()),Float.parseFloat(textFieldPrice.getText().replace(" DT", "")));
+						openShowTicket(index);
+					}
+				}
+
+			});
+			line.add(update,gbc6);
 			
 			
 			System.out.println("ouside if"+listgbc.gridy);
