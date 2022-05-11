@@ -579,7 +579,7 @@ public class Frame extends JFrame {
 		p.setLayout(new BorderLayout());
 		p.setBounds(5, 100, 790, 400);
 
-		JPanel list = new JPanel();
+		/*JPanel list = new JPanel();
 		list.setLayout(new GridLayout(0, 8));
 
 		int k = index * 10;
@@ -648,9 +648,185 @@ public class Frame extends JFrame {
 				}
 
 			});
-
+			
 			list.add(update);
-			k++;
+			k++;*/
+			
+			
+			
+			JPanel list = new JPanel();
+			GridBagLayout listgbl = new GridBagLayout();
+			list.setLayout(listgbl);
+			
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.gridx=0;
+			gbc.gridy=0;
+			GridBagConstraints gbc1 = new GridBagConstraints();
+			gbc1.gridx=1;
+			gbc1.gridy=0;
+			GridBagConstraints gbc2 = new GridBagConstraints();
+			gbc2.gridx=2;
+			gbc2.gridy=0;
+			GridBagConstraints gbc3 = new GridBagConstraints();
+			gbc3.gridx=3;
+			gbc3.gridy=0;
+			GridBagConstraints gbc4 = new GridBagConstraints();
+			gbc4.gridx=4;
+			gbc4.gridy=0;
+			GridBagConstraints gbc5 = new GridBagConstraints();
+			gbc5.gridx=5;
+			gbc5.gridy=0;
+			GridBagConstraints gbc6 = new GridBagConstraints();
+			gbc5.gridx=6;
+			gbc5.gridy=0;
+			
+			
+			
+			GridBagConstraints listgbc = new GridBagConstraints();
+			listgbc.gridy=1;
+			listgbc.gridx=0;
+			
+			GridBagConstraints listheadergbc = new GridBagConstraints();
+			listheadergbc.gridy=0;
+			listheadergbc.gridx=0;
+			
+			JPanel header = new JPanel();
+			Dimension hdimension = new Dimension(114, 30);
+			Dimension hddimension = new Dimension(132, 30);
+			GridBagLayout headergbl = new GridBagLayout();
+			header.setLayout(headergbl);
+			
+			JLabel headerID = new JLabel();
+			headerID.setPreferredSize(hdimension);
+			headerID.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			header.add(headerID, gbc);
+			headerID.setText("Ticket ID");
+
+			JLabel labelClientName = new JLabel();
+			labelClientName.setPreferredSize(hdimension);
+			labelClientName.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			header.add(labelClientName,gbc1);
+			labelClientName.setText("event");
+			
+			JLabel labelEventName = new JLabel();
+			labelEventName.setPreferredSize(hdimension);
+			labelEventName.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			header.add(labelEventName,gbc2);
+			labelEventName.setText("showroom");
+
+			JLabel labelPrice = new JLabel();
+			labelPrice.setPreferredSize(hdimension);
+			labelPrice.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			header.add(labelPrice,gbc3);
+			labelPrice.setText("Date");
+			
+			JLabel labelStatus = new JLabel();
+			labelStatus.setPreferredSize(hddimension);
+			labelStatus.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			header.add(labelStatus,gbc4);
+			labelStatus.setText("description");
+			
+			JLabel labelDelete = new JLabel();
+			labelDelete.setPreferredSize(hdimension);
+			labelDelete.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			header.add(labelDelete,gbc5);
+			labelDelete.setText("Delete");
+			
+			JLabel labelUpdate = new JLabel();
+			labelUpdate.setPreferredSize(hdimension);
+			labelUpdate.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			header.add(labelUpdate,gbc6);
+			labelUpdate.setText("update");
+			
+			list.add(header,listheadergbc);
+			
+			int k = index * 10;
+			Boolean a = false;
+			while (k < events.size() && k < (index + 1) * 10) {
+				JPanel line = new JPanel();
+				Dimension dimension = new Dimension(114, 30);
+				GridBagLayout gbl = new GridBagLayout();
+				line.setLayout(gbl);
+				
+				Evenement i = events.get(k);
+				JLabel lableID = new JLabel();
+				lableID.setPreferredSize(dimension);
+				lableID.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+				line.add(lableID,gbc);
+				lableID.setText(i.getId() + "");
+	
+				JTextField textFieldEventName = new JTextField();
+				textFieldEventName.setPreferredSize(dimension);
+				textFieldEventName.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+				line.add(textFieldEventName);
+				textFieldEventName.setText(i.getNom());
+	
+				JTextField textFieldType = new JTextField();
+				textFieldType.setPreferredSize(dimension);
+				textFieldType.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+				line.add(textFieldType,gbc1);
+				textFieldType.setText(i.getType());
+	
+				JTextField textFieldSalle = new JTextField();
+				textFieldSalle.setPreferredSize(dimension);
+				textFieldSalle.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+				line.add(textFieldSalle,gbc2);
+				textFieldSalle.setText(i.getSalle() + "");
+	
+				JTextField textFieldDate = new JTextField();
+				textFieldDate.setPreferredSize(dimension);
+				textFieldDate.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+				line.add(textFieldDate,gbc3);
+				textFieldDate.setText(i.getDate());
+	
+				JEditorPane editorPaneEventDescription = new JEditorPane();
+				editorPaneEventDescription.setPreferredSize(dimension);
+				editorPaneEventDescription.setBorder(BorderFactory.createLineBorder(Color.GRAY, 0));
+				editorPaneEventDescription.setText(i.getDescription());
+				JScrollPane scrollPane = new JScrollPane(editorPaneEventDescription,
+						ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+				line.add(scrollPane,gbc4);
+	
+				JButton delete = new JButton("Delete");
+				delete.setPreferredSize(dimension);
+				delete.setBackground(Color.RED);
+				delete.addActionListener(new ActionListener() {
+	
+					public void actionPerformed(ActionEvent arg0) {
+						if (JOptionPane.showConfirmDialog(p, "Are you sure ?", "DELETE",
+								JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+							ev.deleteEvent(i.getId());
+							openEditEvent(index);
+						}
+					}
+	
+				});
+				line.add(delete,gbc5);
+				
+				JButton update = new JButton("Update");
+				update.setPreferredSize(dimension);
+				update.setBackground(Color.BLUE);
+				update.addActionListener(new ActionListener() {
+	
+					public void actionPerformed(ActionEvent arg0) {
+						if (JOptionPane.showConfirmDialog(p, "Are you sure ?", "UPDATE",
+								JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+							ev.UpdateEvent(i.getId(), textFieldEventName.getText(), editorPaneEventDescription.getText(),
+									Integer.parseInt(textFieldSalle.getText()), textFieldType.getText(),
+									textFieldDate.getText());
+							openEditEvent(index);
+						}
+					}
+	
+				});
+				line.add(update,gbc6);
+				
+				
+				System.out.println("ouside if"+listgbc.gridy);
+				list.add(line,listgbc);
+				listgbc.gridy+=1;
+				System.out.println("outside if after"+listgbc.gridy);
+				k++;
 
 		}
 
@@ -749,8 +925,6 @@ public class Frame extends JFrame {
 		gbc5.gridx=6;
 		gbc5.gridy=0;
 		
-		
-		
 		GridBagConstraints listgbc = new GridBagConstraints();
 		listgbc.gridy=1;
 		listgbc.gridx=0;
@@ -809,18 +983,7 @@ public class Frame extends JFrame {
 		list.add(header,listheadergbc);
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		int k = index * 10;
-		Boolean a = false;
 		while (k < tickets.size() && k < (index + 1) * 10) {
 			JPanel line = new JPanel();
 			Dimension dimension = new Dimension(114, 30);
