@@ -785,6 +785,7 @@ public class Frame extends JFrame {
 				editorPaneEventDescription.setText(i.getDescription());
 				JScrollPane scrollPane = new JScrollPane(editorPaneEventDescription,
 						ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+				scrollPane.setPreferredSize(dimension);
 				line.add(scrollPane,gbc4);
 	
 				JButton delete = new JButton("Delete");
