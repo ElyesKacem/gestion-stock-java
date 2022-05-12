@@ -679,6 +679,9 @@ public class Frame extends JFrame {
 			GridBagConstraints gbc6 = new GridBagConstraints();
 			gbc5.gridx=6;
 			gbc5.gridy=0;
+			GridBagConstraints gbc7 = new GridBagConstraints();
+			gbc5.gridx=7;
+			gbc5.gridy=0;
 			
 			
 			
@@ -692,7 +695,7 @@ public class Frame extends JFrame {
 			
 			JPanel header = new JPanel();
 			Dimension hdimension = new Dimension(114, 30);
-			Dimension hddimension = new Dimension(132, 30);
+			Dimension hddimension = new Dimension(114, 30);
 			GridBagLayout headergbl = new GridBagLayout();
 			header.setLayout(headergbl);
 			
@@ -702,40 +705,46 @@ public class Frame extends JFrame {
 			header.add(headerID, gbc);
 			headerID.setText("Ticket ID");
 
-			JLabel labelClientName = new JLabel();
-			labelClientName.setPreferredSize(hdimension);
-			labelClientName.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-			header.add(labelClientName,gbc1);
-			labelClientName.setText("event");
-			
 			JLabel labelEventName = new JLabel();
 			labelEventName.setPreferredSize(hdimension);
 			labelEventName.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-			header.add(labelEventName,gbc2);
-			labelEventName.setText("showroom");
-
-			JLabel labelPrice = new JLabel();
-			labelPrice.setPreferredSize(hdimension);
-			labelPrice.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-			header.add(labelPrice,gbc3);
-			labelPrice.setText("Date");
+			header.add(labelEventName,gbc1);
+			labelEventName.setText("event");
 			
-			JLabel labelStatus = new JLabel();
-			labelStatus.setPreferredSize(hddimension);
-			labelStatus.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-			header.add(labelStatus,gbc4);
-			labelStatus.setText("description");
+			JLabel labelType = new JLabel();
+			labelType.setPreferredSize(hdimension);
+			labelType.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			header.add(labelType,gbc2);
+			labelType.setText("Type");
+			
+			JLabel labelShowRoom = new JLabel();
+			labelShowRoom.setPreferredSize(hdimension);
+			labelShowRoom.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			header.add(labelShowRoom,gbc3);
+			labelShowRoom.setText("showroom");
+
+			JLabel labelDate = new JLabel();
+			labelDate.setPreferredSize(hdimension);
+			labelDate.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			header.add(labelDate,gbc4);
+			labelDate.setText("Date");
+			
+			JLabel labeldescription = new JLabel();
+			labeldescription.setPreferredSize(hddimension);
+			labeldescription.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			header.add(labeldescription,gbc5);
+			labeldescription.setText("description");
 			
 			JLabel labelDelete = new JLabel();
 			labelDelete.setPreferredSize(hdimension);
 			labelDelete.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-			header.add(labelDelete,gbc5);
+			header.add(labelDelete,gbc6);
 			labelDelete.setText("Delete");
 			
 			JLabel labelUpdate = new JLabel();
 			labelUpdate.setPreferredSize(hdimension);
 			labelUpdate.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-			header.add(labelUpdate,gbc6);
+			header.add(labelUpdate,gbc7);
 			labelUpdate.setText("update");
 			
 			list.add(header,listheadergbc);
@@ -758,25 +767,25 @@ public class Frame extends JFrame {
 				JTextField textFieldEventName = new JTextField();
 				textFieldEventName.setPreferredSize(dimension);
 				textFieldEventName.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-				line.add(textFieldEventName);
+				line.add(textFieldEventName,gbc1);
 				textFieldEventName.setText(i.getNom());
 	
 				JTextField textFieldType = new JTextField();
 				textFieldType.setPreferredSize(dimension);
 				textFieldType.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-				line.add(textFieldType,gbc1);
+				line.add(textFieldType,gbc2);
 				textFieldType.setText(i.getType());
 	
 				JTextField textFieldSalle = new JTextField();
 				textFieldSalle.setPreferredSize(dimension);
 				textFieldSalle.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-				line.add(textFieldSalle,gbc2);
+				line.add(textFieldSalle,gbc3);
 				textFieldSalle.setText(i.getSalle() + "");
 	
 				JTextField textFieldDate = new JTextField();
 				textFieldDate.setPreferredSize(dimension);
 				textFieldDate.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-				line.add(textFieldDate,gbc3);
+				line.add(textFieldDate,gbc4);
 				textFieldDate.setText(i.getDate());
 	
 				JEditorPane editorPaneEventDescription = new JEditorPane();
@@ -786,11 +795,12 @@ public class Frame extends JFrame {
 				JScrollPane scrollPane = new JScrollPane(editorPaneEventDescription,
 						ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 				scrollPane.setPreferredSize(dimension);
-				line.add(scrollPane,gbc4);
+				line.add(scrollPane,gbc5);
 	
 				JButton delete = new JButton("Delete");
 				delete.setPreferredSize(dimension);
 				delete.setBackground(Color.RED);
+				delete.setForeground(Color.WHITE);
 				delete.addActionListener(new ActionListener() {
 	
 					public void actionPerformed(ActionEvent arg0) {
@@ -802,11 +812,12 @@ public class Frame extends JFrame {
 					}
 	
 				});
-				line.add(delete,gbc5);
+				line.add(delete,gbc6);
 				
 				JButton update = new JButton("Update");
 				update.setPreferredSize(dimension);
 				update.setBackground(Color.BLUE);
+				update.setForeground(Color.WHITE);
 				update.addActionListener(new ActionListener() {
 	
 					public void actionPerformed(ActionEvent arg0) {
@@ -820,7 +831,7 @@ public class Frame extends JFrame {
 					}
 	
 				});
-				line.add(update,gbc6);
+				line.add(update,gbc7);
 				
 				
 				System.out.println("ouside if"+listgbc.gridy);
@@ -979,7 +990,7 @@ public class Frame extends JFrame {
 		labelUpdate.setPreferredSize(hdimension);
 		labelUpdate.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		header.add(labelUpdate,gbc6);
-		labelUpdate.setText("Delete");
+		labelUpdate.setText("Update");
 		
 		list.add(header,listheadergbc);
 		
