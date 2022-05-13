@@ -143,8 +143,8 @@ public int getEventIdWithName(String name) {
 			while (result.next()) {
 				
 				id = result.getInt(1);
-				date = result.getString(5);
-				description = result.getString(6);
+				date = result.getString(6);
+				description = result.getString(5);
 				name = result.getString(2);
 				salle = result.getInt(3);
 				type = result.getString(4);
